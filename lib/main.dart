@@ -75,7 +75,12 @@ class EnboxHomeState extends State<EnboxHome> {
             Text('$_counter', style: Theme.of(context).textTheme.display1),
           ],
         )
-      )
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: _incrementCounter,
+        child: Icon(Icons.edit),
+        backgroundColor: Theme.of(context).primaryColor,
+      ),
     );
   }
 }
