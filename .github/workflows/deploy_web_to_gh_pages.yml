@@ -26,6 +26,7 @@ jobs:
     - uses: subosito/flutter-action@v1.2.0
       with:
         channel: beta
+    - run: flutter config --enable-web
     - run: flutter build web --release
     
     # Publish to GH Pages
