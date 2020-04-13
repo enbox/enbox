@@ -5,7 +5,7 @@ class EnboxConstants extends InheritedWidget {
 
   final String displayName = "enbox";
   final Color color = Colors.blue;
-  final String demoName = "Enbox Demo";
+  final String demoName = "Enbox Demo 2.0";
   final String demoEmail = "enbox@enbox.com";
   @override
   bool updateShouldNotify(EnboxConstants oldWidget) => false;
