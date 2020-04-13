@@ -27,6 +27,7 @@ jobs:
       with:
         channel: beta
     - run: flutter config --enable-web
+    - run: flutter upgrade
     - run: flutter build web --release
     
     # Publish to GH Pages
