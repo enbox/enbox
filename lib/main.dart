@@ -8,7 +8,10 @@ void main() => runApp(EnboxApp());
 class EnboxApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(home: EnboxHome());
+    return MaterialApp(
+      home: EnboxHome(),
+      theme: ThemeData(fontFamily: "Yantramanav"),
+    );
   }
 }
 

@@ -28,6 +28,7 @@ jobs:
         channel: beta
     - run: flutter config --enable-web
     - run: flutter upgrade
+    - run: flutter pub run local_google_fonts:main
     - run: flutter build web --release
     
     # Publish to GH Pages
