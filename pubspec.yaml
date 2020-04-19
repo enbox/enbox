@@ -5,6 +5,9 @@ dependencies:
   cupertino_icons: "^0.1.2"
   flutter:
     sdk: flutter
+  bloc: ^3.0.0
+  flutter_bloc: ^3.2.0
+  equatable: ^1.1.0
 dev_dependencies:
   local_google_fonts: "^1.0.0"
   flutter_test:
