@@ -12,26 +12,32 @@ jobs:
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
 
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-    # Checks out your repository under $GITHUB_WORKSPACE so your job can access it
-    - uses: actions/checkout@v2
-      with:
-        persist-credentials: false
-
-    # Set up the Flutter web build
-    - uses: subosito/flutter-action@v1.2.0
-      with:
-        channel: beta
-      if: ${{ runner.os == "Windows" }}
-      - run: flutter config --enable-windows-desktop
-      if: ${{ runner.os == "macOS" }}
-    - run: flutter config --enable-macos-desktop
-      if: ${{ runner.os == "Linux" }}
-    - run: flutter config --enable-linux-desktop
-    - run: flutter upgrade    
-    if: ${{ runner.os == "Linux" }}
-    - run: flutter config --enable-web
-    - run: flutter upgrade
-    - run: flutter build web --release
+      - name: Check out repository
+        # Checks out your repository under $GITHUB_WORKSPACE so the job can access it
+        - uses: actions/checkout@v2
+          with:
+            persist-credentials: false
+      - name: Set up the Flutter build
+        - uses: subosito/flutter-action@v1.2.0
+          with:
+            channel: beta
+      - name: Configure Flutter build binaries based on OS
+        # Configures Flutter to build a binary on the platform it's running on
+        - if: runner.os == "Windows"
+          run: flutter config --enable-windows-desktop
+        - if: runner.os == "macOS"
+          run: flutter config --enable-macos-desktop
+        - if: runner.os == "Linux"
+          run: flutter config --enable-linux-desktop --enable-web
+      - name: Upgrade Flutter and build binaries
+        run: flutter upgrade
+        - if: runner.os == "Windows"
+          run: flutter build windows --release
+        - if: runner.os == "macOS"
+          run: flutter build macos --release
+        - if: runner.os == "Linux"
+          run: |
+            flutter build linux --release
+            flutter build web --release
+        
