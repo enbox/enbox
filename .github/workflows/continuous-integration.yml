@@ -6,7 +6,29 @@ on:
       - master
 
 jobs:
-  build:
+  build-test-web:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        # Checks out your repository under $GITHUB_WORKSPACE so the job can access it
+        - uses: actions/checkout@v2
+          with:
+            persist-credentials: false
+      - name: Set up the Flutter build
+        - uses: subosito/flutter-action@v1.2.0
+          with:
+            channel: beta
+      - name: Upgrade Flutter and build binaries
+        run: flutter upgrade
+        run: flutter build web --release
+      - name: Save artifact to display build pass/fail
+        uses: actions/upload-artifact@v1
+        with:
+          name: binary-web
+          path: dist
+
+  build-test-desktop:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -35,13 +57,9 @@ jobs:
       - name: Configure Flutter build binaries based on OS
         # Configures Flutter to build a binary on the platform it's running on
           run: flutter config --enable-$OS-desktop
-        - if: runner.os == "Linux"
-          run: flutter config --enable-web
       - name: Upgrade Flutter and build binaries
         run: flutter upgrade
-        run: flutter build $OS
-        - if: runner.os == "Linux"
-          run: flutter build web --release
+        run: flutter build $OS --release
       - name: Save artifact to display build pass/fail
         uses: actions/upload-artifact@v1
         with:
