@@ -63,12 +63,16 @@ jobs:
       - name: Configure Flutter build binaries based on OS
         # Configures Flutter to build a binary on the platform it's running on
         run: flutter config --enable-$OS-desktop
+        # Windows...
+        shell: bash
       - name: Upgrade Flutter and build binaries
         run: |
           flutter upgrade
           flutter packages get
           flutter pub run local_google_fonts:main
           flutter build $OS --release
+        # Windows...
+        shell: bash
       - name: Save artifact to display build pass/fail
         uses: actions/upload-artifact@v1
         with:
