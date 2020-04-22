@@ -37,11 +37,11 @@ jobs:
 
     steps:
       - name: Configure OS variables
-        if: runner.os == "Windows"
+        if: runner.os == 'Windows'
         run: echo ::set-env name=OS::windows
-      - if: runner.os == "macOS"
+      - if: runner.os == 'macOS'
         run: echo ::set-env name=OS::macos
-      - if: runner.os == "Linux"
+      - if: runner.os == 'Linux'
         run: echo ::set-env name=OS::linux
       - name: Check out repository
         # Checks out your repository under $GITHUB_WORKSPACE so the job can access it
