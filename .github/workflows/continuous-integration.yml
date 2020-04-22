@@ -26,8 +26,8 @@ jobs:
       - name: Save artifact to display build pass/fail
         uses: actions/upload-artifact@v1
         with:
-          name: binary-web
-          path: dist
+          name: bin-web
+          path: build
 
   build-test-desktop:
     runs-on: ${{ matrix.os }}
@@ -65,5 +65,5 @@ jobs:
       - name: Save artifact to display build pass/fail
         uses: actions/upload-artifact@v1
         with:
-          name: binary-$OS
-          path: dist
+          name: bin-$OS
+          path: build
