@@ -25,6 +25,7 @@ jobs:
         run: |
           flutter upgrade
           flutter packages get
+          flutter pub run local_google_fonts:main
           flutter build web --release
       - name: Save artifact to display build pass/fail
         uses: actions/upload-artifact@v1
@@ -42,6 +43,8 @@ jobs:
       - name: Set OS to Windows
         if: runner.os == 'Windows'
         run: echo ::set-env name=OS::windows
+        # Required since default shell on Windows is pwsh
+        shell: bash
       - name: Set OS to macOS
         if: runner.os == 'macOS'
         run: echo ::set-env name=OS::macos
@@ -64,6 +67,7 @@ jobs:
         run: |
           flutter upgrade
           flutter packages get
+          flutter pub run local_google_fonts:main
           flutter build $OS --release
       - name: Save artifact to display build pass/fail
         uses: actions/upload-artifact@v1
