@@ -1,0 +1,69 @@
+name: Check build pass/fail
+
+on:
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  build-test-web:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        # Checks out your repository under $GITHUB_WORKSPACE so the job can access it
+        uses: actions/checkout@v2
+        with:
+          persist-credentials: false
+      - name: Set up the Flutter build
+        uses: subosito/flutter-action@v1.2.0
+        with:
+          channel: beta
+      - name: Upgrade Flutter and build binaries
+        run: |
+          flutter upgrade
+          flutter build web --release
+      - name: Save artifact to display build pass/fail
+        uses: actions/upload-artifact@v1
+        with:
+          name: bin-web
+          path: build
+
+  build-test-desktop:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+
+    steps:
+      - name: Configure OS variables
+        if: runner.os == Windows
+        env:
+          OS: windows
+      - if: runner.os == macOS
+        env:
+          OS: macos
+      - if: runner.os == Linux
+        env:
+          OS: linux
+      - name: Check out repository
+        # Checks out your repository under $GITHUB_WORKSPACE so the job can access it
+        uses: actions/checkout@v2
+        with:
+          persist-credentials: false
+      - name: Set up the Flutter build
+        uses: subosito/flutter-action@v1.2.0
+        with:
+          channel: beta
+      - name: Configure Flutter build binaries based on OS
+        # Configures Flutter to build a binary on the platform it's running on
+        run: flutter config --enable-$OS-desktop
+      - name: Upgrade Flutter and build binaries
+        run: |
+          flutter upgrade
+          flutter build $OS --release
+      - name: Save artifact to display build pass/fail
+        uses: actions/upload-artifact@v1
+        with:
+          name: bin-$OS
+          path: build

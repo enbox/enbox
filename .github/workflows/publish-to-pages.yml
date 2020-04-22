@@ -1,0 +1,36 @@
+name: Publish to GitHub Pages
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checks out your repository under $GITHUB_WORKSPACE, so your job can access it
+      uses: actions/checkout@v2
+        with:
+          persist-credentials: false
+
+      # Set up the Flutter web build
+      uses: subosito/flutter-action@v1.2.0
+        with:
+          channel: beta
+      run: |
+        flutter config --enable-web
+        flutter upgrade
+        flutter build web --release
+        cp CNAME build/web
+
+      # Publish to gh-pages
+      if: success()
+        uses: crazy-max/ghaction-github-pages@v1
+        with:
+          target_branch: gh-pages
+          build_dir: build/web
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
