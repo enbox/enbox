@@ -24,7 +24,6 @@ jobs:
           flutter config --enable-web
           flutter upgrade
           flutter packages get
-          flutter pub run local_google_fonts:main
           flutter build web --release
           cp CNAME build/web
 
