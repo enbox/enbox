@@ -40,4 +40,8 @@ jobs:
           run: |
             flutter build linux --release
             flutter build web --release
-        
+      - name: Save artifact to display build pass/fail
+        uses: actions/upload-artifact@v1
+        with:
+          name: binary-${{ matrix.os }}
+          path: dist
