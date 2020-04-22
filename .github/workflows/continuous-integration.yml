@@ -58,7 +58,7 @@ jobs:
       - name: Set up the Flutter build
         uses: subosito/flutter-action@v1.2.0
         with:
-          channel: master
+          channel: dev
       - name: Configure Flutter build binaries based on OS
         # Configures Flutter to build a binary on the platform it's running on
         run: flutter config --enable-$OS-desktop
