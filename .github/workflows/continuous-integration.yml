@@ -13,6 +13,16 @@ jobs:
         os: [ubuntu-latest, macos-latest, windows-latest]
 
     steps:
+      - name: Configure OS variables
+        - if: ${{ runner.os == Windows }}
+          env:
+            OS: windows
+        - if: ${{ runner.os == macOS }}
+          env:
+            OS: macos
+        - if: ${{ runner.os == Linux }}
+          env:
+            OS: linux
       - name: Check out repository
         # Checks out your repository under $GITHUB_WORKSPACE so the job can access it
         - uses: actions/checkout@v2
@@ -24,24 +34,16 @@ jobs:
             channel: beta
       - name: Configure Flutter build binaries based on OS
         # Configures Flutter to build a binary on the platform it's running on
-        - if: runner.os == "Windows"
-          run: flutter config --enable-windows-desktop
-        - if: runner.os == "macOS"
-          run: flutter config --enable-macos-desktop
+          run: flutter config --enable-$OS-desktop
         - if: runner.os == "Linux"
-          run: flutter config --enable-linux-desktop --enable-web
+          run: flutter config --enable-web
       - name: Upgrade Flutter and build binaries
         run: flutter upgrade
-        - if: runner.os == "Windows"
-          run: flutter build windows --release
-        - if: runner.os == "macOS"
-          run: flutter build macos --release
+        run: flutter build $OS
         - if: runner.os == "Linux"
-          run: |
-            flutter build linux --release
-            flutter build web --release
+          run: flutter build web --release
       - name: Save artifact to display build pass/fail
         uses: actions/upload-artifact@v1
         with:
-          name: binary-${{ matrix.os }}
+          name: binary-$OS
           path: dist
