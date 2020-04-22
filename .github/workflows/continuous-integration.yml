@@ -20,8 +20,9 @@ jobs:
           with:
             channel: beta
       - name: Upgrade Flutter and build binaries
-        run: flutter upgrade
-        run: flutter build web --release
+        run: |
+          flutter upgrade
+          flutter build web --release
       - name: Save artifact to display build pass/fail
         uses: actions/upload-artifact@v1
         with:
@@ -58,8 +59,9 @@ jobs:
         # Configures Flutter to build a binary on the platform it's running on
           run: flutter config --enable-$OS-desktop
       - name: Upgrade Flutter and build binaries
-        run: flutter upgrade
-        run: flutter build $OS --release
+        run: |
+          flutter upgrade
+          flutter build $OS --release
       - name: Save artifact to display build pass/fail
         uses: actions/upload-artifact@v1
         with:
