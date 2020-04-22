@@ -19,9 +19,12 @@ jobs:
         uses: subosito/flutter-action@v1.2.0
         with:
           channel: beta
+      - name: Enable Flutter web
+        run: flutter config --enable-web
       - name: Upgrade Flutter and build binaries
         run: |
           flutter upgrade
+          flutter packages get
           flutter build web --release
       - name: Save artifact to display build pass/fail
         uses: actions/upload-artifact@v1
@@ -36,12 +39,14 @@ jobs:
         os: [ubuntu-latest, macos-latest, windows-latest]
 
     steps:
-      - name: Configure OS variables
+      - name: Set OS to Windows
         if: runner.os == 'Windows'
         run: echo ::set-env name=OS::windows
-      - if: runner.os == 'macOS'
+      - name: Set OS to macOS
+        if: runner.os == 'macOS'
         run: echo ::set-env name=OS::macos
-      - if: runner.os == 'Linux'
+      - name: Set OS to Linux
+        if: runner.os == 'Linux'
         run: echo ::set-env name=OS::linux
       - name: Check out repository
         # Checks out your repository under $GITHUB_WORKSPACE so the job can access it
@@ -58,6 +63,7 @@ jobs:
       - name: Upgrade Flutter and build binaries
         run: |
           flutter upgrade
+          flutter packages get
           flutter build $OS --release
       - name: Save artifact to display build pass/fail
         uses: actions/upload-artifact@v1
