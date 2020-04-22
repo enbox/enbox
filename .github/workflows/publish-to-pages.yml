@@ -19,10 +19,12 @@ jobs:
       - uses: subosito/flutter-action@v1.2.0
         with:
           channel: beta
-      - run: |
+      - name: Upgrade Flutter and build binaries
+        run: |
           flutter config --enable-web
           flutter upgrade
           flutter packages get
+          flutter pub run local_google_fonts:main
           flutter build web --release
           cp CNAME build/web
 
