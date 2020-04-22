@@ -68,7 +68,6 @@ jobs:
         run: |
           flutter upgrade
           flutter packages get
-          flutter pub run local_google_fonts:main
           flutter build $OS --release
         # Windows...
         shell: bash
