@@ -25,7 +25,6 @@ jobs:
         run: |
           flutter upgrade
           flutter packages get
-          flutter pub run local_google_fonts:main
           flutter build web --release
       - name: Save artifact to display build pass/fail
         uses: actions/upload-artifact@v1
