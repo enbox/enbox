@@ -22,6 +22,7 @@ jobs:
       - run: |
           flutter config --enable-web
           flutter upgrade
+          flutter packages get
           flutter build web --release
           cp CNAME build/web
 
