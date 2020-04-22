@@ -38,14 +38,14 @@ jobs:
     steps:
       - name: Configure OS variables
         if: runner.os == Windows
-          env:
-            OS: windows
-        if: runner.os == macOS
-          env:
-            OS: macos
-        if: runner.os == Linux
-          env:
-            OS: linux
+        env:
+          OS: windows
+      - if: runner.os == macOS
+        env:
+          OS: macos
+      - if: runner.os == Linux
+        env:
+          OS: linux
       - name: Check out repository
         # Checks out your repository under $GITHUB_WORKSPACE so the job can access it
         uses: actions/checkout@v2
