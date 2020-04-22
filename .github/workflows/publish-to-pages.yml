@@ -23,6 +23,7 @@ jobs:
         flutter config --enable-web
         flutter upgrade
         flutter build web --release
+        cp CNAME build/web
 
       # Publish to gh-pages
       - if: success()
@@ -32,3 +33,4 @@ jobs:
           build_dir: build/web
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
