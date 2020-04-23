@@ -64,9 +64,8 @@ jobs:
         shell: bash
       - name: (Windows) Upgrade Flutter to detect platform
         if: runner.os == 'Windows'
-        run: |
-          flutter upgrade
-          exit 0
+        run: flutter upgrade
+        shell: powershell
       - name: Configure Flutter build binaries based on OS
         # Configures Flutter to build a binary on the platform it's running on
         run: flutter config --enable-$OS-desktop
