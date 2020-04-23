@@ -64,9 +64,12 @@ jobs:
         run: flutter config --enable-$OS-desktop
         # Windows...
         shell: bash
-      - name: Upgrade Flutter and build binaries
+      - name: Upgrade Flutter to master channel
         run: |
+          flutter channel master
           flutter upgrade
+      - name: Build binaries
+        run: |
           flutter packages get
           flutter build $OS --debug
         # Windows...
