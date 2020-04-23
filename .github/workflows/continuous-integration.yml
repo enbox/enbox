@@ -58,7 +58,7 @@ jobs:
         with:
           persist-credentials: false
       - name: Set up the Flutter build
-        run: 
+        run: |
           git clone https://github.com/flutter/flutter.git
           echo ::set-env name=PATH::$PATH:$(pwd)/flutter/bin
         shell: bash
