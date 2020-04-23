@@ -4,6 +4,7 @@ on:
   pull_request:
     branches:
       - master
+  push:
 
 jobs:
   build-test-web:
@@ -58,14 +59,9 @@ jobs:
         with:
           persist-credentials: false
       - name: Set up the Flutter build
-        run: |
-          git clone https://github.com/flutter/flutter.git
-          echo ::set-env name=PATH::$PATH:$(pwd)/flutter/bin
-        shell: bash
-      - name: (Windows) Upgrade Flutter to detect platform
-        if: runner.os == 'Windows'
-        run: flutter/bin/flutter upgrade
-        shell: powershell
+        uses: subosito/flutter-action@v1.2.0
+        with:
+          channel: dev
       - name: Configure Flutter build binaries based on OS
         # Configures Flutter to build a binary on the platform it's running on
         run: flutter config --enable-$OS-desktop
