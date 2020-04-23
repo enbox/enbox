@@ -1,4 +1,4 @@
-name: Check build pass/fail
+name: Check pass/fail
 
 on:
   pull_request:
@@ -7,7 +7,7 @@ on:
       - master
 
 jobs:
-  build-test-web:
+  build-web:
     runs-on: ubuntu-latest
 
     steps:
@@ -33,7 +33,7 @@ jobs:
           name: bin-web
           path: build
 
-  build-test-desktop:
+  build-desktop:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
