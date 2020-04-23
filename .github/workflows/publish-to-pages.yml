@@ -19,7 +19,7 @@ jobs:
       - uses: subosito/flutter-action@v1.2.0
         with:
           channel: beta
-        run: |
+      - run: |
           flutter config --enable-web
           flutter upgrade
           flutter build web --release
