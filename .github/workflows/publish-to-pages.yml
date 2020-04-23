@@ -11,22 +11,22 @@ jobs:
 
     steps:
       # Checks out your repository under $GITHUB_WORKSPACE, so your job can access it
-      uses: actions/checkout@v2
+      - uses: actions/checkout@v2
         with:
           persist-credentials: false
 
       # Set up the Flutter web build
-      uses: subosito/flutter-action@v1.2.0
+      - uses: subosito/flutter-action@v1.2.0
         with:
           channel: beta
-      run: |
-        flutter config --enable-web
-        flutter upgrade
-        flutter build web --release
-        cp CNAME build/web
+        run: |
+          flutter config --enable-web
+          flutter upgrade
+          flutter build web --release
+          cp CNAME build/web
 
       # Publish to gh-pages
-      if: success()
+      - if: success()
         uses: crazy-max/ghaction-github-pages@v1
         with:
           target_branch: gh-pages
