@@ -63,8 +63,10 @@ jobs:
           echo ::set-env name=PATH::$PATH:$(pwd)/flutter/bin
         shell: bash
       - name: (Windows) Upgrade Flutter to detect platform
-        run: flutter upgrade
         if: runner.os == 'Windows'
+        run: |
+          flutter upgrade
+          exit 0
       - name: Configure Flutter build binaries based on OS
         # Configures Flutter to build a binary on the platform it's running on
         run: flutter config --enable-$OS-desktop
