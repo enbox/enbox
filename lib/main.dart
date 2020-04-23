@@ -10,7 +10,6 @@ class EnboxApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: EnboxHome(),
-      theme: ThemeData(fontFamily: "Yantramanav"),
     );
   }
 }

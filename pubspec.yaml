@@ -9,28 +9,7 @@ dependencies:
   flutter_bloc: ^3.2.0
   equatable: ^1.1.0
 dev_dependencies:
-  local_google_fonts: "^1.0.0"
   flutter_test:
     sdk: flutter
 environment:
   sdk: ">=2.7.0 <3.0.0"
-flutter:
-  fonts:
-    - family: "Yantramanav"
-      fonts:
-        - asset: "assets/fonts/googleFonts/Yantramanav/Yantramanav-100.ttf"
-          weight: 100
-        - asset: "assets/fonts/googleFonts/Yantramanav/Yantramanav-300.ttf"
-          weight: 300
-        - asset: "assets/fonts/googleFonts/Yantramanav/Yantramanav-400.ttf"
-          weight: 400
-        - asset: "assets/fonts/googleFonts/Yantramanav/Yantramanav-500.ttf"
-          weight: 500
-        - asset: "assets/fonts/googleFonts/Yantramanav/Yantramanav-700.ttf"
-          weight: 700
-        - asset: "assets/fonts/googleFonts/Yantramanav/Yantramanav-900.ttf"
-          weight: 900
-  uses-material-design: true
-google_fonts:
-  fonts:
-    - "Yantramanav"
