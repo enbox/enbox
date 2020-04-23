@@ -2,6 +2,7 @@ name: Check build pass/fail
 
 on:
   pull_request:
+  push:
     branches:
       - master
 
@@ -44,9 +45,11 @@ jobs:
         run: echo ::set-env name=OS::windows
         # Required since default shell on Windows is pwsh
         shell: bash
-      - name: Set OS to macOS
+      - name: Set OS to macOS (and set release flag)
         if: runner.os == 'macOS'
-        run: echo ::set-env name=OS::macos
+        run: |
+          echo ::set-env name=OS::macos
+          echo ::set-env name=FLAGS::--release
       - name: Set OS to Linux
         if: runner.os == 'Linux'
         run: echo ::set-env name=OS::linux
@@ -64,15 +67,18 @@ jobs:
         run: flutter config --enable-$OS-desktop
         # Windows...
         shell: bash
-      - name: Upgrade Flutter and build binaries
+      - name: Upgrade Flutter to master channel
         run: |
+          flutter channel master
           flutter upgrade
+      - name: Build binaries
+        run: |
           flutter packages get
-          flutter build $OS --release
+          flutter build $OS $FLAGS
         # Windows...
         shell: bash
       - name: Save artifact to display build pass/fail
         uses: actions/upload-artifact@v1
         with:
-          name: bin-$OS
+          name: bin-${{ env.OS }}
           path: build
