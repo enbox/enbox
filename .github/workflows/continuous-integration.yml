@@ -68,7 +68,7 @@ jobs:
         run: |
           flutter upgrade
           flutter packages get
-          flutter build $OS --release
+          flutter build $OS
         # Windows...
         shell: bash
       - name: Save artifact to display build pass/fail
