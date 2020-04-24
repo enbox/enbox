@@ -1,7 +1,7 @@
+import 'package:enbox/constants.dart';
+import 'package:enbox/navigation.dart';
+import "package:enbox/theme.dart";
 import "package:flutter/material.dart";
-import "package:enbox/navbar.dart";
-import "package:enbox/appbar.dart";
-import "package:enbox/items_display.dart";
 
 void main() => runApp(EnboxApp());
 
@@ -9,32 +9,24 @@ class EnboxApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: EnboxHome(),
+      theme: EnboxTheme.fallback,
+      initialRoute: "/today",
+      navigatorObservers: [AppRouteObserver()],
+      routes: {
+        RouteNames.today: (_) => TodayPage(),
+      },
     );
   }
 }
 
-class EnboxHome extends StatelessWidget {
+class TodayPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: EnboxAppBar(),
-      body: EnboxBody(),
-    );
-  }
-}
-
-class EnboxBody extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: <Widget>[
-        EnboxNavbar(),
-        EnboxItemsDisplay(
-          "Today",
-        ),
-        //EnboxItemDisplay(),
-      ],
+    return AppScaffold(
+      pageTitle: PageTitles.today,
+      body: const Center(
+        child: const Text("Today!"),
+      ),
     );
   }
 }
