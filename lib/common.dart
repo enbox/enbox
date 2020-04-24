@@ -134,9 +134,6 @@ class _EnboxTileState extends State<EnboxTile> {
         trailing: isMobile(context) || _isHovering
             ? Row(
                 children: <Widget>[
-                  const SizedBox(
-                    width: 38, // 38-27
-                  ),
                   IconButton(
                     icon: const Icon(MdiIcons.pin),
                     onPressed: () {},
