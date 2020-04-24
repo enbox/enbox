@@ -53,6 +53,8 @@ class EmailsBloc extends Bloc<EmailsEvent, EmailsState> {
       items.add(_items[index % _items.length]);
     }
     bool maxed = items.length == _max;
+    // Simulate latency (3s)
+    await Future.delayed(Duration(seconds: 3));
 
     if (state is EmailsAvailable) {
       yield (state as EmailsAvailable)
